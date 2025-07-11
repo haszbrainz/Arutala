@@ -1,0 +1,120 @@
+name: program_arutala
+description: "A new Flutter project."
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.2.1
+  shared_preferences: ^2.2.3
+  provider: ^6.0.0
+  http_parser: ^4.0.0
+  dio: ^5.4.0
+  dio_smart_retry: ^7.0.1
+  cupertino_icons: ^1.0.8
+  smooth_page_indicator: ^1.2.1
+  flutter_map: ^8.1.1
+  image_picker: ^1.1.2
+  mime: ^2.0.0
+  camera: ^0.10.3
+  image: ^4.0.13
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.6
+  build_web_compilers: ^4.0.6
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "asset/images/arutala-1.png"
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - asset/images/profil_budiono.png
+    - asset/images/Banner1.png
+    - asset/images/bg-frame.png
+    - asset/images/bg-frame1.png
+    - asset/images/Group_269.png
+    - asset/images/image_82.png
+    - asset/images/image_83.png
+    - asset/images/image_84.png
+    - asset/images/aksara_sunda.png
+    - asset/images/aksara_jawa.png
+    - asset/images/aksara_bali.png
+    - asset/images/Arutala_Pengembangan.gif
+    - asset/images/belajar_screen.png
+    - asset/images/arutala-1.png
+    # - assets/images/arutala_icon_2x.png
+    # - assets/images/slide1.png
+    # - assets/images/slide2.png
+    # - assets/images/slide3.png
+    # Pastikan juga folder font utama dideklarasikan jika ada di level yang sama
+    - asset/fonts/
+
+  fonts:
+    - family: Stylomateicon
+      fonts:
+        - asset: asset/fonts/Stylomateicon.ttf
+    - family: Arutalav2icon
+      fonts:
+        - asset: asset/fonts/Arutalav2Icon.ttf
+    - family: ArutalaIcons
+      fonts:
+        - asset: asset/fonts/ArutalaIcons.ttf
+    - family: AksaraJawa
+      fonts:
+        - asset: asset/fonts/Genk-Kobra Elysanti rev.ttf
+    - family: NotoSansJavanese
+      fonts:
+        - asset: asset/fonts/NotoSansJavanese-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: asset/fonts/Roboto-Bold.ttf
+    - family: RobotoMedium
+      fonts:
+        - asset: asset/fonts/Roboto-Medium.ttf
+    - family: RobotoRegular
+      fonts:
+        - asset: asset/fonts/Roboto-Regular.ttf
+    - family: Lampung
+      fonts:
+        - asset: asset/fonts/Lampung.otf
+    - family: SFProRounded
+      fonts:
+        # Thin
+        - asset: asset/fonts/SF-Pro-Rounded-Thin.ttf
+          weight: 100
+        # Ultralight
+        - asset: asset/fonts/SF-Pro-Rounded-Ultralight.ttf
+          weight: 200
+        # Light
+        - asset: asset/fonts/SF-Pro-Rounded-Light.ttf
+          weight: 300
+        # Regular
+        - asset: asset/fonts/SF-Pro-Rounded-Regular.ttf
+          weight: 400
+        # Medium
+        - asset: asset/fonts/SF-Pro-Rounded-Medium.ttf
+          weight: 500
+        # Semibold
+        - asset: asset/fonts/SF-Pro-Rounded-Semibold.ttf
+          weight: 600
+        # Bold
+        - asset: asset/fonts/SF-Pro-Rounded-Bold.ttf
+          weight: 700
+        # Heavy
+        - asset: asset/fonts/SF-Pro-Rounded-Heavy.ttf
+          weight: 800
+        # Black
+        - asset: asset/fonts/SF-Pro-Rounded-Black.ttf
+          weight: 900
