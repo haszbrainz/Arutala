@@ -20,7 +20,6 @@ class MainApp extends StatelessWidget {
       // Anda bisa menghapus `initialRoute` dan `routes` jika semua navigasi utama
       // dikelola sepenuhnya oleh FloatingNavigationBar.
       // initialRoute: RouteNames.home,
-      // routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );
   }
