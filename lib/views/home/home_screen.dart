@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:program_arutala/themes/custom_colors.dart';
 import 'package:program_arutala/themes/custom_text_styles.dart';
-import 'package:program_arutala/widgets/navigation/bar.dart';
+// import 'package:program_arutala/widgets/navigation/bar.dart';
 import 'package:program_arutala/widgets/card/card.dart'; // Impor kartu yang sudah diupdate
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:program_arutala/views/translate/scan_screen.dart'; // Impor halaman kamera
@@ -264,8 +264,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      floatingActionButton: const FloatingNavigationBar(initialIndex: 0),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: const FloatingNavigationBar(initialIndex: 0),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

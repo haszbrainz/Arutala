@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:program_arutala/themes/custom_colors.dart';
 import 'package:program_arutala/themes/custom_text_styles.dart';
-import 'package:program_arutala/widgets/navigation/bar.dart';
+// import 'package:program_arutala/widgets/navigation/bar.dart';
 
 class BelajarScreen extends StatelessWidget {
   const BelajarScreen({super.key});
@@ -88,8 +88,8 @@ class BelajarScreen extends StatelessWidget {
         ),
       ),
       // FloatingNavigationBar tetap ada dengan index yang sesuai
-      floatingActionButton: const FloatingNavigationBar(initialIndex: 1),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: const FloatingNavigationBar(initialIndex: 1),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

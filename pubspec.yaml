@@ -22,6 +22,7 @@ dependencies:
   mime: ^2.0.0
   camera: ^0.10.3
   image: ^4.0.13
+  google_nav_bar: ^5.0.7
 
 dev_dependencies:
   flutter_test:
@@ -54,11 +55,6 @@ flutter:
     - asset/images/Arutala_Pengembangan.gif
     - asset/images/belajar_screen.png
     - asset/images/arutala-1.png
-    # - assets/images/arutala_icon_2x.png
-    # - assets/images/slide1.png
-    # - assets/images/slide2.png
-    # - assets/images/slide3.png
-    # Pastikan juga folder font utama dideklarasikan jika ada di level yang sama
     - asset/fonts/
 
   fonts:

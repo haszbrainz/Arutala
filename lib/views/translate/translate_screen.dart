@@ -48,8 +48,8 @@ class TranslateScreenState extends State<TranslateScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         extendBody: true,
-        floatingActionButton: const FloatingNavigationBar(initialIndex: 2),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButton: const FloatingNavigationBar(initialIndex: 2),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: CustomAppBarTranslate(),
