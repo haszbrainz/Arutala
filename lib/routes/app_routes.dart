@@ -7,6 +7,13 @@ import 'package:program_arutala/views/belajar/belajar_screen.dart';
 import 'package:program_arutala/views/autentikasi/akun/registrasi_screen.dart';
 import 'package:program_arutala/views/autentikasi/loading/loading_screen.dart';
 import 'package:program_arutala/views/autentikasi/selamat%20datang/selamat_datang_regis.dart';
+import 'package:program_arutala/views/autentikasi/selamat%20datang/selamat_personalisasi.dart';
+import 'package:program_arutala/views/autentikasi/akun/personalisasi_screen.dart';
+import 'package:program_arutala/views/autentikasi/splash/splash_screen.dart';
+import 'package:program_arutala/views/autentikasi/akun/onboarding_screen.dart';
+
+
+
 import './name_routes.dart';
 
 class AppRoutes {
@@ -20,6 +27,10 @@ class AppRoutes {
     RouteNames.regisflow: (context) => const RegistrationFlowScreen(),
     RouteNames.loading: (context) => const LoadingScreen(),
     RouteNames.welcomeRegistrasi: (context) => const WelcomeRegistrasiScreen(),
+    RouteNames.personalisasi: (context) => const PersonalizationFlowScreen (),
+    RouteNames.selamatpersonalisasi: (context) => const PersonalizationIntroScreen(),
+    RouteNames.splash: (context) => const SplashScreen(),
+    RouteNames.onBoarding: (context) => const OnboardingScreen(),
     // RouteNames.profil: (context) => const ProfilScreen(),     // Pastikan ProfilScreen ada
     // Tambahkan pemetaan rute lain di sini
   };

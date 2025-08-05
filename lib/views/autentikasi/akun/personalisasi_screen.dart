@@ -51,7 +51,7 @@ class _PersonalizationFlowScreenState extends State<PersonalizationFlowScreen> {
               // Jika ini adalah halaman pertama, kembali ke halaman intro
               Navigator.pushReplacementNamed(
                 context,
-                RouteNames.personalizationIntro,
+                RouteNames.personalisasi,
               );
             }
           },

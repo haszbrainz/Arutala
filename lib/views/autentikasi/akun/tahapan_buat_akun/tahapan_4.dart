@@ -49,7 +49,7 @@ class Tahapan4 extends StatelessWidget {
               // Jika berhasil, pindah ke alur personalisasi
               Navigator.pushNamedAndRemoveUntil(
                 context,
-                RouteNames.personalizationIntro, // Arahkan ke rute yang benar
+                RouteNames.selamatpersonalisasi, // Arahkan ke rute yang benar
                 (route) => false, // Hapus semua halaman sebelumnya
               );
             },

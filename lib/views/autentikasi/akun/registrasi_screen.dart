@@ -11,7 +11,7 @@ import 'tahapan_buat_akun/tahapan_3.dart';
 import 'tahapan_buat_akun/tahapan_4.dart';
 
 class RegistrationFlowScreen extends StatelessWidget {
-  const RegistrationFlowScreen({super.key});
+  const RegistrationFlowScreen ({super.key});
 
   @override
   Widget build(BuildContext context) {
