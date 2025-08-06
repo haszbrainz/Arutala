@@ -10,11 +10,18 @@ import 'tahapan_buat_akun/tahapan_2.dart';
 import 'tahapan_buat_akun/tahapan_3.dart';
 import 'tahapan_buat_akun/tahapan_4.dart';
 
-class RegistrationFlowScreen extends StatelessWidget {
-  const RegistrationFlowScreen ({super.key});
+// [DIUBAH] Widget ini diubah dari StatelessWidget menjadi StatefulWidget
+class RegistrationFlowScreen extends StatefulWidget {
+  const RegistrationFlowScreen({super.key});
 
   @override
+  State<RegistrationFlowScreen> createState() => _RegistrationFlowScreenState();
+}
+
+class _RegistrationFlowScreenState extends State<RegistrationFlowScreen> {
+  @override
   Widget build(BuildContext context) {
+    // Isi dari build method yang sebelumnya ada di StatelessWidget dipindahkan ke sini.
     return ChangeNotifierProvider(
       create: (_) => RegistrationViewModel(),
       child: const _RegistrationFlowScreenBody(),
@@ -22,6 +29,8 @@ class RegistrationFlowScreen extends StatelessWidget {
   }
 }
 
+
+// Bagian di bawah ini tidak diubah sama sekali
 class _RegistrationFlowScreenBody extends StatefulWidget {
   const _RegistrationFlowScreenBody();
 
@@ -33,7 +42,6 @@ class _RegistrationFlowScreenBody extends StatefulWidget {
 class _RegistrationFlowScreenBodyState
     extends State<_RegistrationFlowScreenBody> {
   final PageController _pageController = PageController();
-
   @override
   void dispose() {
     _pageController.dispose();

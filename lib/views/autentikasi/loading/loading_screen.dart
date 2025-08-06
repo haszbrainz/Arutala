@@ -1,9 +1,7 @@
-// lib/loading_screen.dart
-
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:program_arutala/themes/custom_colors.dart'; // Sesuaikan dengan path Anda
-import 'package:program_arutala/themes/custom_text_styles.dart'; // Tambahkan import ini
+import 'package:program_arutala/themes/custom_colors.dart';
+import 'package:program_arutala/themes/custom_text_styles.dart'; 
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -31,11 +29,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
           children: [
             Image.asset(
               'assets/images/arutala-1.gif',
-              width: 244, // Anda bisa sesuaikan ukuran GIF di sini
+              width: 244, 
             ),
-            const SizedBox(height: 24), // Jarak antara GIF dan teks
-
-            // 2. Tambahkan teks "memuat..."
+            const SizedBox(height: 24), 
             Text(
               'memuat...',
               style: CustomTextStyles.mediumLg.copyWith(

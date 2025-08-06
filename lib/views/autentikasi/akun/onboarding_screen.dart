@@ -49,7 +49,7 @@ class OnboardingScreen extends StatelessWidget {
                   height: 46,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/regis_flow');
+                      Navigator.pushNamed(context, '/regis-flow');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: CustomColors.primary600,

@@ -15,8 +15,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // Atur timer untuk pindah halaman setelah 3 detik
     Timer(const Duration(seconds: 1), () {
-      // Pindah ke halaman loading dan hapus halaman splash dari tumpukan navigasi
-      Navigator.pushReplacementNamed(context, '/on-boarding');
+      // Pindah ke halaman onboarding dan hapus halaman splash dari tumpukan navigasi
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/on-boarding', (route) => false);
     });
   }
 
