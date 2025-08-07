@@ -1,45 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:program_arutala/view_model/personalisasi_auth_vm.dart';
-import 'package:program_arutala/themes/custom_colors.dart';
+// Ganti 'mindoro' dengan nama proyek Anda jika berbeda
+import 'package:program_arutala/themes/custom_colors.dart'; 
 import 'package:program_arutala/themes/custom_text_styles.dart';
+import 'package:program_arutala/routes/name_routes.dart';
 
-class Tahapan4 extends StatefulWidget {
+class Tahapan4 extends StatelessWidget {
   final PageController pageController;
   const Tahapan4({super.key, required this.pageController});
 
   @override
-  State<Tahapan4> createState() => _Tahapan4State();
-}
-
-class _Tahapan4State extends State<Tahapan4> {
-  // State lokal untuk menyimpan pilihan yang sedang dipilih di halaman ini
-  String? _selectedClass;
-
-  // Daftar pilihan jawaban
-  final List<String> _classOptions = [
-    'I (Satu)', 'II (Dua)', 'III (Tiga)',
-    'IV (Empat)', 'V (Lima)', 'VI (Enam)'
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<PersonalizationViewModel>();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 32),
-          // Pertanyaan
+          // Header
           Row(
             children: [
-              const Icon(Icons.door_front_door_outlined, size: 32, color: CustomColors.neutral500),
+              const Icon(Icons.card_giftcard, size: 32, color: CustomColors.neutral500),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
-                  'Wah, kamu menempuh kelas berapa saat ini?',
+                  'Ini pencapaian yang dapat kamu raih!',
                   style: CustomTextStyles.mediumXl,
                 ),
               ),
@@ -47,41 +31,58 @@ class _Tahapan4State extends State<Tahapan4> {
           ),
           const SizedBox(height: 32),
 
-          // Pilihan Jawaban
-          ..._classOptions.map((option) {
-            bool isSelected = _selectedClass == option;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: _ChoiceButton(
-                text: option,
-                isSelected: isSelected,
-                onTap: () {
-                  setState(() {
-                    _selectedClass = option;
-                  });
-                },
-              ),
-            );
-          }).toList(),
+          // Kartu Bonus
+          Container(
+            padding: const EdgeInsets.all(24.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+              border: Border.all(color: CustomColors.neutral200),
+              boxShadow: [
+                BoxShadow(
+                  color: CustomColors.neutral200.withOpacity(0.5),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                )
+              ],
+            ),
+            child: Column(
+              children: [
+                _buildBonusItem(
+                  icon: Icons.checklist_rtl,
+                  title: 'Belajar dengan Percaya Diri',
+                  subtitle: '50.000+ latihan interaktif yang tentunya seru',
+                ),
+                const Divider(height: 32),
+                _buildBonusItem(
+                  icon: Icons.search,
+                  title: 'Menguasai Beragam Topik',
+                  subtitle: '5.000+ materi pembelajaran dari berbagai subjek',
+                ),
+                const Divider(height: 32),
+                _buildBonusItem(
+                  icon: Icons.extension,
+                  title: 'Mengembangkan Belajar',
+                  subtitle: 'Pengingat cerdas, tantangan seru, dan lainnya',
+                ),
+              ],
+            ),
+          ),
 
           const Spacer(), // Mendorong tombol ke bawah
 
           // Tombol Selanjutnya
           ElevatedButton(
-            // Tombol hanya aktif jika sudah ada jawaban yang dipilih
-            onPressed: _selectedClass == null ? null : () {
-              // Simpan jawaban ke ViewModel
-              viewModel.selectedClass = _selectedClass;
-              // Pindah ke halaman berikutnya
-              viewModel.nextStep();
-              widget.pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn,
+            onPressed: () {
+              // Pindah ke halaman welcome registrasi dan hapus semua halaman sebelumnya
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteNames.welcomeRegistrasi, // Arahkan ke rute welcome registrasi
+                (route) => false,
               );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: CustomColors.primary500,
-              disabledBackgroundColor: CustomColors.neutral200,
               minimumSize: const Size(double.infinity, 52),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0),
@@ -94,42 +95,25 @@ class _Tahapan4State extends State<Tahapan4> {
       ),
     );
   }
-}
 
-// Widget Pilihan Jawaban yang bisa digunakan kembali
-class _ChoiceButton extends StatelessWidget {
-  final String text;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _ChoiceButton({
-    required this.text,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        decoration: BoxDecoration(
-          color: isSelected ? CustomColors.primary100.withOpacity(0.5) : Colors.transparent,
-          borderRadius: BorderRadius.circular(16.0),
-          border: Border.all(
-            color: isSelected ? CustomColors.primary500 : CustomColors.neutral200,
-            width: 2,
+  // Helper widget untuk setiap item bonus
+  Widget _buildBonusItem({required IconData icon, required String title, required String subtitle}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: CustomColors.primary500, size: 24),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: CustomTextStyles.semiboldBase),
+              const SizedBox(height: 4),
+              Text(subtitle, style: CustomTextStyles.regularSm.copyWith(color: CustomColors.neutral500)),
+            ],
           ),
         ),
-        child: Text(
-          text,
-          style: CustomTextStyles.mediumBase.copyWith(
-            color: isSelected ? CustomColors.primary700 : CustomColors.neutral700,
-          ),
-        ),
-      ),
+      ],
     );
   }
 }

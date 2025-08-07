@@ -1,16 +1,20 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Pastikan provider di-import
 import 'package:program_arutala/routes/app_routes.dart';
 import 'package:program_arutala/routes/name_routes.dart';
-import 'themes/main_theme.dart';
-// Import widget FloatingNavigationBar yang baru
-import 'package:program_arutala/widgets/navigation/bar.dart';
-import 'views/autentikasi/splash/splash_screen.dart';
-import 'views/autentikasi/akun/onboarding_screen.dart'; // Import OnboardingScreen
-import 'package:program_arutala/views/autentikasi/akun/registrasi_screen.dart'; // Import RegistrationFlowScreen
+import 'package:program_arutala/themes/main_theme.dart';
+
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    // 2. Bungkus aplikasi dengan MultiProvider
+    MultiProvider(
+      // 3. Panggil daftar provider dari class AppProviders
+      providers: AppProviders.providers,
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -20,8 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.themeData,
-      initialRoute: RouteNames.splash, // Rute awal aplikasi
-      // Set FloatingNavigationBar sebagai widget utama/home
+      initialRoute: RouteNames.splash,
       routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
     );

@@ -19,12 +19,13 @@ class Tahapan3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('Berapa umurmu?', style: CustomTextStyles.bold2xl), // Disesuaikan agar konsisten
+          Text('Apa alamat email mu?', style: CustomTextStyles.bold2xl), // Disesuaikan agar konsisten
           const SizedBox(height: 16),
           TextFormField(
             onChanged: (value) => viewModel.age = value, // Simpan umur ke ViewModel
             decoration: InputDecoration(
-              hintText: '14',
+              hintText: 'Masukan alamat email mu',
+              hintStyle: CustomTextStyles.boldBase.copyWith(color: CustomColors.neutral200),
               filled: true,
               fillColor: CustomColors.neutral50,
               border: OutlineInputBorder(

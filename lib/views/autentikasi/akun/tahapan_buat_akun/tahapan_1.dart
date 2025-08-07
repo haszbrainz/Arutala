@@ -24,7 +24,8 @@ class Tahapan1 extends StatelessWidget {
           TextFormField(
             onChanged: (value) => viewModel.age = value, // Simpan umur ke ViewModel
             decoration: InputDecoration(
-              hintText: '14',
+              hintText: 'masukan umurmu',
+              hintStyle: CustomTextStyles.boldBase.copyWith(color: CustomColors.neutral200),
               filled: true,
               fillColor: CustomColors.neutral50,
               border: OutlineInputBorder(
@@ -52,8 +53,8 @@ class Tahapan1 extends StatelessWidget {
             
             child: ElevatedButton(
               onPressed: () {
-                viewModel.nextStep(); // Pindah ke langkah selanjutnya di ViewModel
-                pageController.nextPage( // Pindah halaman di PageView
+                viewModel.nextStep(); 
+                pageController.nextPage( 
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeIn,
                 );
