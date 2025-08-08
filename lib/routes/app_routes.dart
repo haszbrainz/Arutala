@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:program_arutala/views/autentikasi/login/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -27,6 +28,7 @@ class AppRoutes {
     RouteNames.welcomeRegistrasi: (context) => const WelcomeRegistrasiScreen(),
     RouteNames.scan: (context) => const ScanScreen(),
     RouteNames.loading: (context) => const LoadingScreen(),
+    RouteNames.login: (context) => const LoginScreen(),
     RouteNames.home: (context) => const FloatingNavigationBar(initialIndex: 0),
     RouteNames.belajar: (context) =>
         const FloatingNavigationBar(initialIndex: 1),

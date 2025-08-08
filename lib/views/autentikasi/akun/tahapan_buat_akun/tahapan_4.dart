@@ -28,7 +28,7 @@ class _Tahapan4State extends State<Tahapan4> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('Buat kata sandi yang aman', style: CustomTextStyles.bold2xl),
+          Text('Buat kata sandi yang aman', style: CustomTextStyles.bold2xl.copyWith(color: CustomColors.neutral700)),
           const SizedBox(height: 16),
           TextFormField(
             onChanged: (value) => viewModel.password = value,
@@ -36,7 +36,7 @@ class _Tahapan4State extends State<Tahapan4> {
             obscureText: _isPasswordObscured,
             decoration: InputDecoration(
               hintText: 'Masukan kata sandi',
-              hintStyle: TextStyle(color: CustomColors.neutral400),
+              hintStyle: CustomTextStyles.boldBase.copyWith(color: CustomColors.neutral200),
               filled: true,
               fillColor: CustomColors.neutral50,
               border: OutlineInputBorder(
@@ -93,7 +93,9 @@ class _Tahapan4State extends State<Tahapan4> {
                   elevation: 0, // Menonaktifkan shadow bawaan
                 ),
                 // [DIUBAH] Style text disesuaikan dengan Tahapan 3
-                child: Text('Lanjut', style: CustomTextStyles.semiboldBase),
+                child: Text('Lanjut', style: CustomTextStyles.semiboldBase.copyWith(
+                  color: Colors.white,
+                )),
               ),
             ),
           ),

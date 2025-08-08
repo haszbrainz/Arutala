@@ -19,7 +19,7 @@ class Tahapan3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('Apa alamat email mu?', style: CustomTextStyles.bold2xl), // Disesuaikan agar konsisten
+          Text('Apa alamat email mu?', style: CustomTextStyles.bold2xl.copyWith(color: CustomColors.neutral700)), // Disesuaikan agar konsisten
           const SizedBox(height: 16),
           TextFormField(
             onChanged: (value) => viewModel.age = value, // Simpan umur ke ViewModel
@@ -68,7 +68,9 @@ class Tahapan3 extends StatelessWidget {
                 ),
                 elevation: 0, // Menonaktifkan shadow bawaan agar tidak tumpang tindih
               ),
-              child: Text('Lanjut', style: CustomTextStyles.semiboldBase),
+              child: Text('Lanjut', style: CustomTextStyles.semiboldBase.copyWith(
+                color: Colors.white,
+              )),
             ),
             ),
           ),

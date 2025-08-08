@@ -27,7 +27,7 @@ class WelcomeRegistrasiScreen extends StatelessWidget {
               const Spacer(),
               // 1. Gambar Ilustrasi
               Image.asset(
-                'assets/images/party_welcome.png', // Pastikan gambar ini ada
+                'asset/images/arutala-1.png', // Pastikan gambar ini ada
                 height: 120,
               ),
               const SizedBox(height: 32),

@@ -21,7 +21,7 @@ class OnboardingScreen extends StatelessWidget {
               // 1. Gambar Ilustrasi Utama
               Image.asset(
                 'asset/images/arutala-1.png',
-                height: 390, // Sesuaikan ukuran gambar
+                height: 200, // Sesuaikan ukuran gambar
               ),
               const SizedBox(height: 50),
               Text(
@@ -60,7 +60,9 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                     child: Text(
                       'Lanjutkan',
-                      style: CustomTextStyles.semiboldBase,
+                      style: CustomTextStyles.semiboldBase.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
