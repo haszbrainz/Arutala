@@ -14,11 +14,15 @@ class Tahapan1 extends StatefulWidget {
 }
 
 class _Tahapan1State extends State<Tahapan1> {
-  String? _selectedClass;
+  String? _selectedEducationLevel;
 
-  final List<String> _classOptions = [
-    'I (Satu)', 'II (Dua)', 'III (Tiga)',
-    'IV (Empat)', 'V (Lima)', 'VI (Enam)'
+  final List<String> _educationOptions = [
+    'Sekolah Dasar',
+    'Sekolah Menengah Pertama',
+    'Sekolah Menengah Atas',
+    'Sekolah Menengah Kejuruan',
+    'Mahasiswa',
+    'Lainnya/Other'
   ];
 
   @override
@@ -35,20 +39,20 @@ class _Tahapan1State extends State<Tahapan1> {
           Row(
             children: [
               // [DIKEMBALIKAN] Menjadi Icon biasa, bukan IconButton
-              const Icon(Icons.door_front_door_outlined, size: 32, color: CustomColors.neutral500),
+              const Icon(Icons.school_outlined,
+                  size: 32, color: CustomColors.neutral500),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
-                  'Wah, kamu menempuh kelas berapa saat ini?',
+                  'Pilih jenjang pendidikanmu',
                   style: CustomTextStyles.mediumXl,
                 ),
               ),
             ],
           ),
           const SizedBox(height: 32),
-
-          ..._classOptions.map((option) {
-            bool isSelected = _selectedClass == option;
+          ..._educationOptions.map((option) {
+            bool isSelected = _selectedEducationLevel == option;
             return Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: _ChoiceButton(
@@ -56,24 +60,24 @@ class _Tahapan1State extends State<Tahapan1> {
                 isSelected: isSelected,
                 onTap: () {
                   setState(() {
-                    _selectedClass = option;
+                    _selectedEducationLevel = option;
                   });
                 },
               ),
             );
           }).toList(),
-
           const Spacer(),
-
           ElevatedButton(
-            onPressed: _selectedClass == null ? null : () {
-              viewModel.selectedClass = _selectedClass;
-              viewModel.nextStep();
-              widget.pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              );
-            },
+            onPressed: _selectedEducationLevel == null
+                ? null
+                : () {
+                    viewModel.selectedClass = _selectedEducationLevel;
+                    viewModel.nextStep();
+                    widget.pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn,
+                    );
+                  },
             style: ElevatedButton.styleFrom(
               backgroundColor: CustomColors.primary500,
               disabledBackgroundColor: CustomColors.neutral200,
@@ -82,7 +86,9 @@ class _Tahapan1State extends State<Tahapan1> {
                 borderRadius: BorderRadius.circular(24.0),
               ),
             ),
-            child: Text('Selanjutnya', style: CustomTextStyles.semiboldBase.copyWith(color: Colors.white)),
+            child: Text('Selanjutnya',
+                style: CustomTextStyles.semiboldBase
+                    .copyWith(color: Colors.white)),
           ),
           const SizedBox(height: 40),
         ],
@@ -111,17 +117,21 @@ class _ChoiceButton extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         decoration: BoxDecoration(
-          color: isSelected ? CustomColors.primary100.withOpacity(0.5) : Colors.transparent,
+          color: isSelected
+              ? CustomColors.primary100.withOpacity(0.5)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(
-            color: isSelected ? CustomColors.primary500 : CustomColors.neutral200,
+            color:
+                isSelected ? CustomColors.primary500 : CustomColors.neutral200,
             width: 2,
           ),
         ),
         child: Text(
           text,
           style: CustomTextStyles.mediumBase.copyWith(
-            color: isSelected ? CustomColors.primary700 : CustomColors.neutral700,
+            color:
+                isSelected ? CustomColors.primary700 : CustomColors.neutral700,
           ),
         ),
       ),

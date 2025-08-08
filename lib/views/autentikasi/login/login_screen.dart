@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:program_arutala/themes/custom_colors.dart'; // Sesuaikan path
 import 'package:program_arutala/themes/custom_text_styles.dart'; // Sesuaikan path
+import 'package:program_arutala/routes/name_routes.dart'; // Import name_routes
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // PERUBAHAN UTAMA: Tambahkan properti ini
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -33,7 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      // PERUBAHAN UTAMA: Hapus SingleChildScrollView dan LayoutBuilder
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -78,7 +77,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(24.0),
                 ),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // [DIPERBAIKI] Menambahkan predicate yang hilang
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      RouteNames.home, // Menggunakan RouteNames untuk konsistensi
+                      (Route<dynamic> route) => false,
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors.primary500,
                     foregroundColor: Colors.white,
@@ -107,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const Spacer(), // Spacer akan berfungsi normal sekarang
+              const Spacer(),
 
               // 3. Tombol Social Login
               _buildSocialLoginButton(
@@ -130,9 +136,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  // Helper method lainnya tetap sama...
-  // ... (_buildInputDecoration, _buildSocialLoginButton, _buildDisclaimerText)
 
   InputDecoration _buildInputDecoration({required String hintText, Widget? suffixIcon}) {
     return InputDecoration(

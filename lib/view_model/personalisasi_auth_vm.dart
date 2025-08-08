@@ -4,6 +4,7 @@ class PersonalizationViewModel extends ChangeNotifier {
   // --- STATE DATA PERSONALIASASI ---
   // Simpan jawaban dari setiap langkah. Gunakan tipe data yang sesuai.
   String? selectedClass;
+  String? informationSource;
   String? learningFocus;
   String? dailyGoal;
   String? bonus; // Hanya satu subjek favorit
