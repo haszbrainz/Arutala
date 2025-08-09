@@ -19,22 +19,29 @@ class Tahapan3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 8),
-          Text('Apa alamat email mu?', style: CustomTextStyles.bold2xl.copyWith(color: CustomColors.neutral700)), // Disesuaikan agar konsisten
+          Text('Apa alamat email mu?',
+              style: CustomTextStyles.bold2xl.copyWith(
+                  color:
+                      CustomColors.neutral700)), // Disesuaikan agar konsisten
           const SizedBox(height: 16),
           TextFormField(
-            onChanged: (value) => viewModel.age = value, // Simpan umur ke ViewModel
+            onChanged: (value) => viewModel.email = value,
             decoration: InputDecoration(
               hintText: 'Masukan alamat email mu',
-              hintStyle: CustomTextStyles.boldBase.copyWith(color: CustomColors.neutral200),
+              hintStyle: CustomTextStyles.boldBase
+                  .copyWith(color: CustomColors.neutral200),
               filled: true,
               fillColor: CustomColors.neutral50,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16.0),
                 borderSide: BorderSide.none,
               ),
-              suffixIcon: const Icon(Icons.check_circle, color: CustomColors.primary500),
+              suffixIcon: const Icon(Icons.check_circle,
+                  color: CustomColors.primary500),
             ),
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            enableSuggestions: false,
           ),
           const Spacer(),
           Container(
@@ -42,7 +49,7 @@ class Tahapan3 extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: CustomColors.primary700,
-                  offset: const Offset(0, 4),           
+                  offset: const Offset(0, 4),
                 ),
               ],
               borderRadius: BorderRadius.circular(24.0),
@@ -50,28 +57,45 @@ class Tahapan3 extends StatelessWidget {
             child: SizedBox(
               width: 382,
               height: 46,
-            
-            child: ElevatedButton(
-              onPressed: () {
-                viewModel.nextStep(); // Pindah ke langkah selanjutnya di ViewModel
-                pageController.nextPage( // Pindah halaman di PageView
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: CustomColors.primary600,
-                foregroundColor: Colors.white,
-                // minimumSize: const Size(double.infinity, 52),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  final email = viewModel.email.trim();
+                  // Mengizinkan domain bertingkat (mis. .co.id) dan karakter email yang umum
+                  final emailRegExp = RegExp(
+                    r"^[A-Za-z0-9.!#\$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$",
+                  );
+                  if (email.isEmpty || !emailRegExp.hasMatch(email)) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content:
+                              Text('Alamat email tidak valid. Periksa lagi.')),
+                    );
+                    return;
+                  }
+                  viewModel.email = email.toLowerCase();
+                  viewModel
+                      .nextStep(); // Pindah ke langkah selanjutnya di ViewModel
+                  pageController.nextPage(
+                    // Pindah halaman di PageView
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: CustomColors.primary600,
+                  foregroundColor: Colors.white,
+                  // minimumSize: const Size(double.infinity, 52),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
+                  elevation:
+                      0, // Menonaktifkan shadow bawaan agar tidak tumpang tindih
                 ),
-                elevation: 0, // Menonaktifkan shadow bawaan agar tidak tumpang tindih
+                child: Text('Lanjut',
+                    style: CustomTextStyles.semiboldBase.copyWith(
+                      color: Colors.white,
+                    )),
               ),
-              child: Text('Lanjut', style: CustomTextStyles.semiboldBase.copyWith(
-                color: Colors.white,
-              )),
-            ),
             ),
           ),
           const SizedBox(height: 40),

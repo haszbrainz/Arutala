@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 // Ganti 'mindoro' dengan nama proyek Anda jika berbeda
-import 'package:program_arutala/themes/custom_colors.dart'; 
+import 'package:program_arutala/themes/custom_colors.dart';
 import 'package:program_arutala/themes/custom_text_styles.dart';
 import 'package:program_arutala/routes/name_routes.dart';
+import 'package:provider/provider.dart';
+import 'package:program_arutala/view_model/personalisasi_auth_vm.dart';
+import 'package:program_arutala/services/personalization_service.dart';
 
 class Tahapan4 extends StatelessWidget {
   final PageController pageController;
@@ -19,7 +22,8 @@ class Tahapan4 extends StatelessWidget {
           // Header
           Row(
             children: [
-              const Icon(Icons.card_giftcard, size: 32, color: CustomColors.neutral500),
+              const Icon(Icons.card_giftcard,
+                  size: 32, color: CustomColors.neutral500),
               const SizedBox(width: 16),
               Expanded(
                 child: Text(
@@ -73,13 +77,41 @@ class Tahapan4 extends StatelessWidget {
 
           // Tombol Selanjutnya
           ElevatedButton(
-            onPressed: () {
-              // Pindah ke halaman welcome registrasi dan hapus semua halaman sebelumnya
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                RouteNames.welcomeRegistrasi, // Arahkan ke rute welcome registrasi
-                (route) => false,
-              );
+            onPressed: () async {
+              final vm = context.read<PersonalizationViewModel>();
+              final service = PersonalizationService();
+              try {
+                final saved = await service.saveOrQueue(
+                  educationLevel: vm.selectedClass,
+                  informationSource: vm.informationSource,
+                  learningFocus: vm.learningFocus,
+                );
+
+                if (!context.mounted) return;
+                // Lanjut ke welcome meski data baru di-queue; akan di-flush setelah sesi aktif
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  RouteNames.welcomeRegistrasi,
+                  (route) => false,
+                );
+
+                if (!saved) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Data personalisasi akan tersimpan setelah akun aktif.',
+                      ),
+                    ),
+                  );
+                }
+              } catch (e) {
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Gagal menyimpan personalisasi.'),
+                  ),
+                );
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: CustomColors.primary500,
@@ -88,7 +120,9 @@ class Tahapan4 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24.0),
               ),
             ),
-            child: Text('Selanjutnya', style: CustomTextStyles.semiboldBase.copyWith(color: Colors.white)),
+            child: Text('Selanjutnya',
+                style: CustomTextStyles.semiboldBase
+                    .copyWith(color: Colors.white)),
           ),
           const SizedBox(height: 40),
         ],
@@ -97,7 +131,10 @@ class Tahapan4 extends StatelessWidget {
   }
 
   // Helper widget untuk setiap item bonus
-  Widget _buildBonusItem({required IconData icon, required String title, required String subtitle}) {
+  Widget _buildBonusItem(
+      {required IconData icon,
+      required String title,
+      required String subtitle}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -109,7 +146,9 @@ class Tahapan4 extends StatelessWidget {
             children: [
               Text(title, style: CustomTextStyles.semiboldBase),
               const SizedBox(height: 4),
-              Text(subtitle, style: CustomTextStyles.regularSm.copyWith(color: CustomColors.neutral500)),
+              Text(subtitle,
+                  style: CustomTextStyles.regularSm
+                      .copyWith(color: CustomColors.neutral500)),
             ],
           ),
         ),

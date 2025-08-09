@@ -14,4 +14,8 @@ class RouteNames {
   static const String selamatDatangRegis = '/selamat-datang-regis';
   static const String loading = '/loading';
   static const String login = '/login';
+  static const String modul1 = '/modul1';
+  static const String latihanIntro = '/latihan-intro';
+  static const String latihanSoal = '/latihan-soal';
+  static const String berhasilLatihan = '/berhasil-latihan';
 }

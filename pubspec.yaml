@@ -23,6 +23,7 @@ dependencies:
   camera: ^0.10.3
   image: ^4.0.13
   google_nav_bar: ^5.0.7
+  supabase_flutter: ^2.9.1
 
 dev_dependencies:
   flutter_test:
@@ -55,7 +56,15 @@ flutter:
     - asset/images/Arutala_Pengembangan.gif
     - asset/images/belajar_screen.png
     - asset/images/arutala-1.png
-    - asset/fonts/
+    - asset/images/step_1.png
+    - asset/images/step_2.png
+    - asset/images/hanacaraka.jpeg
+    - asset/images/latihan_owl.png
+    - asset/images/NA.png
+    - asset/images/NYA.png
+    - asset/images/TA.png
+    - asset/images/YA.png
+
 
   fonts:
     - family: Stylomateicon

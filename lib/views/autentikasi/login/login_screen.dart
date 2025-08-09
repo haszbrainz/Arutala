@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:program_arutala/themes/custom_colors.dart'; // Sesuaikan path
 import 'package:program_arutala/themes/custom_text_styles.dart'; // Sesuaikan path
 import 'package:program_arutala/routes/name_routes.dart'; // Import name_routes
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:program_arutala/services/personalization_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +16,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   // State untuk mengontrol visibilitas password
   bool _isPasswordObscured = true;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text(
           'Masukkan detail anda',
-          style: CustomTextStyles.mediumLg.copyWith(color: CustomColors.neutral900),
+          style: CustomTextStyles.mediumLg
+              .copyWith(color: CustomColors.neutral900),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -42,17 +54,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // 1. Input Fields
               TextFormField(
-                decoration: _buildInputDecoration(hintText: 'Masukkan email kamu'),
+                controller: _emailController,
+                decoration:
+                    _buildInputDecoration(hintText: 'Masukkan email kamu'),
                 keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                enableSuggestions: false,
               ),
               const SizedBox(height: 16),
               TextFormField(
+                controller: _passwordController,
                 obscureText: _isPasswordObscured,
                 decoration: _buildInputDecoration(
                   hintText: '∗∗∗∗∗∗∗∗∗∗∗∗∗∗',
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _isPasswordObscured ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                      _isPasswordObscured
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                       color: CustomColors.neutral400,
                     ),
                     onPressed: () {
@@ -77,13 +96,50 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(24.0),
                 ),
                 child: ElevatedButton(
-                  onPressed: () {
-                    // [DIPERBAIKI] Menambahkan predicate yang hilang
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      RouteNames.home, // Menggunakan RouteNames untuk konsistensi
-                      (Route<dynamic> route) => false,
+                  onPressed: () async {
+                    final email = _emailController.text.trim();
+                    final password = _passwordController.text;
+                    final emailRegExp = RegExp(
+                      r"^[A-Za-z0-9.!#\$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+$",
                     );
+                    if (email.isEmpty ||
+                        !emailRegExp.hasMatch(email) ||
+                        password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content:
+                                Text('Email tidak valid atau password kosong')),
+                      );
+                      return;
+                    }
+                    try {
+                      final res = await Supabase.instance.client.auth
+                          .signInWithPassword(
+                        email: email,
+                        password: password,
+                      );
+                      if (res.session != null) {
+                        // Flush pending personalization if any
+                        await PersonalizationService().flushIfAny();
+                        if (!mounted) return;
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RouteNames.home,
+                          (Route<dynamic> route) => false,
+                        );
+                      }
+                    } on AuthException catch (e) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(e.message)),
+                      );
+                    } catch (e) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Terjadi kesalahan. Coba lagi.')),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors.primary500,
@@ -109,7 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Text(
                   'Lupa kata sandi',
-                  style: CustomTextStyles.semiboldBase.copyWith(color: CustomColors.primary500),
+                  style: CustomTextStyles.semiboldBase
+                      .copyWith(color: CustomColors.primary500),
                 ),
               ),
 
@@ -137,10 +194,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  InputDecoration _buildInputDecoration({required String hintText, Widget? suffixIcon}) {
+  InputDecoration _buildInputDecoration(
+      {required String hintText, Widget? suffixIcon}) {
     return InputDecoration(
       hintText: hintText,
-      hintStyle: CustomTextStyles.regularBase.copyWith(color: CustomColors.neutral400),
+      hintStyle:
+          CustomTextStyles.regularBase.copyWith(color: CustomColors.neutral400),
       suffixIcon: suffixIcon,
       filled: true,
       fillColor: CustomColors.neutral100.withOpacity(0.5),
@@ -160,13 +219,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildSocialLoginButton({required IconData icon, required String label}) {
+  Widget _buildSocialLoginButton(
+      {required IconData icon, required String label}) {
     return OutlinedButton.icon(
       onPressed: () {},
       icon: Icon(icon, color: CustomColors.neutral800),
       label: Text(
         label,
-        style: CustomTextStyles.mediumBase.copyWith(color: CustomColors.neutral800),
+        style: CustomTextStyles.mediumBase
+            .copyWith(color: CustomColors.neutral800),
       ),
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: CustomColors.neutral200),
@@ -182,12 +243,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        style: CustomTextStyles.regularSm.copyWith(color: CustomColors.neutral400),
+        style:
+            CustomTextStyles.regularSm.copyWith(color: CustomColors.neutral400),
         children: <TextSpan>[
           const TextSpan(text: 'Dengan masuk ke Mindoro, anda setuju dengan '),
           TextSpan(
             text: 'Ketentuan',
-            style: CustomTextStyles.semiboldSm.copyWith(color: CustomColors.primary500),
+            style: CustomTextStyles.semiboldSm
+                .copyWith(color: CustomColors.primary500),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 // Tambahkan navigasi ke halaman Ketentuan Layanan
@@ -196,7 +259,8 @@ class _LoginScreenState extends State<LoginScreen> {
           const TextSpan(text: ' dan '),
           TextSpan(
             text: 'kebijakan privasi',
-            style: CustomTextStyles.semiboldSm.copyWith(color: CustomColors.primary500),
+            style: CustomTextStyles.semiboldSm
+                .copyWith(color: CustomColors.primary500),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 // Tambahkan navigasi ke halaman Kebijakan Privasi

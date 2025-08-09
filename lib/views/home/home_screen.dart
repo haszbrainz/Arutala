@@ -5,6 +5,8 @@ import 'package:program_arutala/themes/custom_text_styles.dart';
 import 'package:program_arutala/widgets/card/card.dart'; // Impor kartu yang sudah diupdate
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:program_arutala/views/translate/scan_screen.dart'; // Impor halaman kamera
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -27,25 +29,29 @@ class _HomeScreenState extends State<HomeScreen> {
       'icon': 'asset/images/image_83.png', // Path gambar ikon
       'title': 'Praktik',
       'subtitle': 'Mulai menulis langsung',
-      'background': 'asset/images/bg-frame.png' // Ganti dengan path background Anda
+      'background':
+          'asset/images/bg-frame.png' // Ganti dengan path background Anda
     },
     {
       'icon': 'asset/images/image_82.png',
       'title': 'Latihan',
       'subtitle': 'Mulai latihan langsung',
-      'background': 'asset/images/bg-frame1.png' // Ganti dengan path background Anda
+      'background':
+          'asset/images/bg-frame1.png' // Ganti dengan path background Anda
     },
     {
       'icon': 'asset/images/image_84.png',
       'title': 'Tantangan',
       'subtitle': 'Mulai Tantangan langsung',
-      'background': 'asset/images/bg-frame1.png' // Ganti dengan path background Anda
+      'background':
+          'asset/images/bg-frame1.png' // Ganti dengan path background Anda
     },
     {
       'icon': 'asset/images/Group_269.png',
       'title': 'Scan',
       'subtitle': 'Mulai Terjemah',
-      'background': 'asset/images/bg-frame1.png' // Ganti dengan path background Anda
+      'background':
+          'asset/images/bg-frame1.png' // Ganti dengan path background Anda
     },
   ];
 
@@ -64,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         // Menggunakan Dialog untuk kontrol penuh atas tampilan
         return Dialog(
-          backgroundColor: Colors.transparent, // Membuat background bawaan transparan
+          backgroundColor:
+              Colors.transparent, // Membuat background bawaan transparan
           elevation: 0,
           child: Container(
             width: 240,
@@ -82,14 +89,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 Image.asset(
                   'asset/images/Arutala_Pengembangan.gif', // GANTI PATH INI
                   height: 120,
-                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.code_off, size: 60, color: CustomColors.neutral400),
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                      Icons.code_off,
+                      size: 60,
+                      color: CustomColors.neutral400),
                 ),
-                
+
                 // Teks
                 Text(
                   'Fitur Sedang Dalam Pengembangan',
                   textAlign: TextAlign.center,
-                  style: CustomTextStyles.semiboldBase.copyWith(color: CustomColors.neutral700),
+                  style: CustomTextStyles.semiboldBase
+                      .copyWith(color: CustomColors.neutral700),
                 ),
 
                 // Tombol Kembali
@@ -100,14 +111,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2196F3), // Warna biru dari gambar
+                      backgroundColor:
+                          const Color(0xFF2196F3), // Warna biru dari gambar
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     child: Text(
                       'Kembali',
-                      style: CustomTextStyles.semiboldSm.copyWith(color: Colors.white),
+                      style: CustomTextStyles.semiboldSm
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),
@@ -126,11 +139,18 @@ class _HomeScreenState extends State<HomeScreen> {
       MaterialPageRoute(builder: (context) => const ScanScreen()),
     );
   }
-  
+
   // --- AKHIR LOGIKA BARU ---
 
   @override
   Widget build(BuildContext context) {
+    // Ambil nama pengguna dari Supabase (user metadata 'full_name'); fallback ke default
+    final user = Supabase.instance.client.auth.currentUser;
+    final String displayName =
+        ((user?.userMetadata?['full_name'] as String?)?.trim().isNotEmpty ==
+                true)
+            ? (user?.userMetadata?['full_name'] as String)
+            : 'Budiono Siregar';
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -162,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               .copyWith(color: CustomColors.neutral600),
                         ),
                         Text(
-                          'Budiono Siregar',
+                          displayName,
                           style: CustomTextStyles.boldLg
                               .copyWith(color: CustomColors.neutral900),
                           overflow: TextOverflow.ellipsis,
@@ -237,7 +257,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 20, // Jarak horizontal
                 mainAxisSpacing: 20, // Jarak vertikal
-                childAspectRatio: 181 / 240, // Rasio aspek agar kartu lebih tinggi
+                childAspectRatio:
+                    181 / 240, // Rasio aspek agar kartu lebih tinggi
               ),
               itemBuilder: (context, index) {
                 final item = featureData[index];
